@@ -68,15 +68,18 @@ jobs:
             ${{ runner.os }}-
 
       - name: West Init
-        run: west init -l keyboard/config
+        run: west init -l "${GITHUB_WORKSPACE}/keyboard/config"
 
       - name: West Update
+        working-directory: ${{ github.workspace }}
         run: west update --fetch-opt=--filter=tree:0
 
       - name: West Zephyr export
+        working-directory: ${{ github.workspace }}
         run: west zephyr-export
 
       - name: West Build (${{ env.display_name }})
+        working-directory: ${{ github.workspace }}
         shell: sh -x {0}
         run: west build -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" ${{ env.extra_west_args }} -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/keyboard/config" ${{ env.extra_cmake_args }} ${{ matrix.cmake-args }}
 
