@@ -68,7 +68,8 @@ jobs:
             ${{ runner.os }}-
 
       - name: West Init
-        run: west init -l "${GITHUB_WORKSPACE}/keyboard/config"
+        working-directory: ${{ github.workspace }}
+        run: west init -l keyboard/config
 
       - name: West Update
         working-directory: ${{ github.workspace }}
