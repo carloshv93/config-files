@@ -1,15 +1,18 @@
 on:
   push:
     paths:
-      - 'keyboard/**'
+      - 'config/**'
+      - 'boards/**'
+      - 'build.yaml'
+      - 'zephyr/**'
   pull_request:
     paths:
-      - 'keyboard/**'
+      - 'config/**'
+      - 'boards/**'
+      - 'build.yaml'
+      - 'zephyr/**'
   workflow_dispatch:
 
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
-    with:
-      build_matrix_path: keyboard/build.yaml
-      config_path: keyboard/config
