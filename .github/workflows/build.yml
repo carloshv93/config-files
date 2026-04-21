@@ -71,17 +71,25 @@ jobs:
             ${{ runner.os }}-
 
       - name: West Init
-        run: west init -l keyboard/config
+        run: |
+          cd "${GITHUB_WORKSPACE}"
+          west init -l keyboard/config
 
       - name: West Update
-        run: west update --fetch-opt=--filter=tree:0
+        run: |
+          cd "${GITHUB_WORKSPACE}"
+          west update --fetch-opt=--filter=tree:0
 
       - name: West Zephyr export
-        run: west zephyr-export
+        run: |
+          cd "${GITHUB_WORKSPACE}"
+          west zephyr-export
 
       - name: West Build (${{ env.display_name }})
         shell: sh -x {0}
-        run: west build -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" ${{ env.extra_west_args }} -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/keyboard/config" ${{ env.extra_cmake_args }} ${{ matrix.cmake-args }}
+        run: |
+          cd "${GITHUB_WORKSPACE}"
+          west build -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" ${{ env.extra_west_args }} -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/keyboard/config" ${{ env.extra_cmake_args }} ${{ matrix.cmake-args }}
 
       - name: Rename artifacts
         shell: sh -x {0}
