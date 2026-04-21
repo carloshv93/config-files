@@ -59,11 +59,11 @@ jobs:
           cache_name: cache-zephyr-modules
         with:
           path: |
-            modules/
-            tools/
-            zephyr/
-            bootloader/
-            zmk/
+            keyboard/modules/
+            keyboard/tools/
+            keyboard/zephyr/
+            keyboard/bootloader/
+            keyboard/zmk/
           key: ${{ runner.os }}-build-${{ env.cache_name }}-${{ hashFiles('keyboard/config/west.yml', 'keyboard/build.yaml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache_name }}-
@@ -73,10 +73,8 @@ jobs:
       - name: West Init, Update, and Build (${{ env.display_name }})
         shell: sh -x {0}
         run: |
-          cd "${GITHUB_WORKSPACE}"
-          echo "Working directory: $(pwd)"
-          ls -la
-          west init -l keyboard/config
+          cd "${GITHUB_WORKSPACE}/keyboard"
+          west init -l config
           west update --fetch-opt=--filter=tree:0
           west zephyr-export
           west build -s zmk/app -d "${{ env.build_dir }}" -b "${{ matrix.board }}" ${{ env.extra_west_args }} -- -DZMK_CONFIG="${GITHUB_WORKSPACE}/keyboard/config" ${{ env.extra_cmake_args }} ${{ matrix.cmake-args }}
