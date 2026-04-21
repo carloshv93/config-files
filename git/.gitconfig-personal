@@ -1,0 +1,6 @@
+[user]
+	email = carloshv93@gmail.com
+	name = Carlos Herrera
+
+[core]
+	sshCommand = ssh -i ~/.ssh/personal -o IdentitiesOnly=yes -o IdentityAgent=none

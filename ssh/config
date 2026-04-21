@@ -1,0 +1,16 @@
+Host personal
+  HostName github.com
+  User git
+  AddKeysToAgent yes
+  IdentitiesOnly yes
+  IdentityAgent none
+  IdentityFile ~/.ssh/personal
+
+# Template for adding new keys:
+# Host <name>
+#   HostName github.com
+#   User git
+#   AddKeysToAgent yes
+#   IdentitiesOnly yes
+#   IdentityAgent none
+#   IdentityFile ~/.ssh/<name>
