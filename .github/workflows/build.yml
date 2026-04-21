@@ -1,4 +1,11 @@
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    paths:
+      - 'keyboard/**'
+  pull_request:
+    paths:
+      - 'keyboard/**'
+  workflow_dispatch:
 
 jobs:
   build:
