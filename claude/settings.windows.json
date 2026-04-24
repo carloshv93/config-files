@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "%USERPROFILE%\\.local\\bin\\dcg.exe"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -Command \"$output = $env:CLAUDE_TOOL_OUTPUT; $match = [regex]::Match($output, 'https://github\\.com/arlo-engineering/[^/]+/pull/[0-9]+'); if ($match.Success) { gh pr edit $match.Value --add-assignee @me --add-label NPI }\""
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  },
+  "theme": "dark-ansi"
+}
