@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.local/bin/dcg"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pr_url=$(echo \"$CLAUDE_TOOL_OUTPUT\" | grep -oE 'https://github\\.com/arlo-engineering/[^/]+/pull/[0-9]+' | head -1) && [ -n \"$pr_url\" ] && gh pr edit \"$pr_url\" --add-assignee @me --add-label NPI || true"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  },
+  "theme": "dark-ansi"
+}
